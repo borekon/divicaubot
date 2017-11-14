@@ -56,6 +56,24 @@ def magnet(bot, update, args):
     else:
         bot.send_document(chat_id=update.message.chat_id,document=open(mypath, 'rb'))
         os.remove(mypath)
+def ip(bot, update)
+    if update.message.from_user.id != int(config['ADMIN']['id']):
+        bot.sendChatAction(chat_id=update.message.chat_id,
+                           action=ChatAction.TYPING)
+        time.sleep(1)
+        bot.sendMessage(chat_id=update.message.chat_id,
+                        text="It seems like you aren't allowed to use me. :(")        
+    else:
+        bot.sendChatAction(chat_id=update.message.chat_id,
+                           action=ChatAction.TYPING)
+        time.sleep(1)
+        bot.sendMessage(chat_id=update.message.chat_id,
+                        text="The server current ip is")
+        bot.sendChatAction(chat_id=update.message.chat_id,
+                           action=ChatAction.TYPING)
+        time.sleep(1.5)
+         bot.sendMessage(chat_id=update.message.chat_id,text=ipgetter.myip())
+
 
 def get_files_by_file_size(dirname, reverse=True):
     """ Return list of file paths in directory sorted by file size """
@@ -81,11 +99,11 @@ if platform.system() == 'Linux':
     if not 'TMP' in os.environ:
         os.environ['TMP'] = '/tmp'
 updater = Updater(token=config['KEYS']['bot_api'])
-#Returns the system/OS name, e.g. 'Linux', 'Windows', or 'Java'. An empty string is returned if the value cannot be determined.
-print platform.system()
+
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
 updater.dispatcher.add_handler(CommandHandler('culo', prueba))
+updater.dispatcher.add_handler(CommandHandler('ip', ip))
 updater.dispatcher.add_handler(CommandHandler('magnet', magnet, pass_args=True))
 
 
