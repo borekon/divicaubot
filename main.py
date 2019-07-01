@@ -100,11 +100,18 @@ if platform.system() == 'Linux':
         os.environ['TMP'] = '/tmp'
 updater = Updater(token=config['KEYS']['bot_api'])
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(CommandHandler('hello', hello))
-updater.dispatcher.add_handler(CommandHandler('culo', prueba))
-updater.dispatcher.add_handler(CommandHandler('ip', ip))
-updater.dispatcher.add_handler(CommandHandler('magnet', magnet, pass_args=True))
+dispatcher = updater.dispatcher
+start_handler = CommandHandler('start', start)
+hello_handler = CommandHandler('hello', hello)
+culo_handler = CommandHandler('culo', prueba)
+ip_handler = CommandHandler('ip', ip)
+magnet_handler = CommandHandler('magnet', magnet, pass_args=True)
+
+dispatcher.add_handler(start_handler)
+dispatcher.add_handler(hello_handler)
+dispatcher.add_handler(culo_handler)
+dispatcher.add_handler(ip_handler)
+dispatcher.add_handler(magnet_handler)
 
 
 updater.start_polling()
